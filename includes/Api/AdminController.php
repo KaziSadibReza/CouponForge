@@ -58,6 +58,13 @@ class AdminController {
             ]
         ] );
 
+        // 3.5. Delete Rule
+        register_rest_route( self::NAMESPACE, '/rules/(?P<id>\d+)', [
+            'methods'             => 'DELETE',
+            'callback'            => [ $this, 'delete_rule' ],
+            'permission_callback' => [ $this, 'check_permission' ],
+        ] );
+
         // 4. Product Search (For the React Autocomplete)
         register_rest_route( self::NAMESPACE, '/products', [
             'methods'             => 'GET',
@@ -324,6 +331,26 @@ class AdminController {
         return rest_ensure_response( [
             'success' => true,
             'message' => __( 'Rule saved successfully.', \CouponForge::TEXT_DOMAIN )
+        ] );
+    }
+
+    /**
+     * Delete Rule
+     */
+    public function delete_rule( WP_REST_Request $request ): WP_REST_Response {
+        global $wpdb;
+        $table = Schema::get_rules_table();
+        $id    = (int) $request->get_param( 'id' );
+
+        $deleted = $wpdb->delete( $table, [ 'id' => $id ], [ '%d' ] );
+
+        if ( ! $deleted ) {
+            return rest_ensure_response( new WP_Error( 'db_error', 'Could not delete rule', [ 'status' => 500 ] ) );
+        }
+
+        return rest_ensure_response( [
+            'success' => true,
+            'message' => __( 'Rule deleted successfully.', \CouponForge::TEXT_DOMAIN )
         ] );
     }
 
