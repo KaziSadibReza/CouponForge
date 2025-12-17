@@ -62,7 +62,7 @@ final class CouponForge {
         // DEV MODE FLAG: 
         // true  = Load from http://localhost:3000 (Hot Reload)
         // false = Load from /assets (Production Build)
-        define( 'COUPON_FORGE_DEV_MODE', true ); 
+        define( 'COUPON_FORGE_DEV_MODE', false ); 
     }
 
     /**
