@@ -62,7 +62,7 @@ final class CouponForge {
         // DEV MODE FLAG: 
         // true  = Load from http://localhost:3000 (Hot Reload)
         // false = Load from /assets (Production Build)
-        define( 'COUPON_FORGE_DEV_MODE', false ); 
+        define( 'COUPON_FORGE_DEV_MODE', true ); 
     }
 
     /**
@@ -85,10 +85,20 @@ final class CouponForge {
         add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
         add_action( 'before_woocommerce_init', [ $this, 'declare_hpos_compatibility' ] );
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'add_plugin_action_links' ] );
 
         // Initialize Core Logic
         new \CouponForge\Core\Generator();
         new \CouponForge\Api\AdminController();
+    }
+
+    /**
+     * Add Settings link to plugin actions
+     */
+    public function add_plugin_action_links( $links ) {
+        $settings_link = '<a href="' . admin_url( 'admin.php?page=coupon-forge' ) . '">' . __( 'Settings', self::TEXT_DOMAIN ) . '</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
     }
 
     /**
