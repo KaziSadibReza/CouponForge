@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: CouponForge
- * Plugin URI:  https://github.com/KaziSadibReza
+ * Plugin URI:  https://github.com/KaziSadibReza/CouponForge
  * Description: High-performance, conditional coupon generator for WooCommerce with a modern admin interface.
  * Version:     1.0.0
  * Author:      Kazi Sadib Reza
