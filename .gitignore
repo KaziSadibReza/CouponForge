@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Development files
+src/
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+package.json
+package-lock.json
+
+# Development assets
+*.scss.backup
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# Build files (keep only production assets)
+# We keep the assets/ folder but exclude source maps
+assets/**/*.map
